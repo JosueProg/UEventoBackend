@@ -17,6 +17,17 @@ builder.Services.AddAuthorization(options =>
     options.FallbackPolicy = options.DefaultPolicy;
 });
 
+var proveedorPermitidos = "_misOrigenesPermitidos";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: proveedorPermitidos,
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200") // Cambia esto por tu URL de Angular
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

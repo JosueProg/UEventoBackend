@@ -7,5 +7,7 @@ namespace UEventoBackend.Controllers
     [ApiController]
     public class ComentariosController : ControllerBase
     {
+
+
     }
 }
