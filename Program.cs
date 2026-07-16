@@ -1,8 +1,14 @@
 using Microsoft.AspNetCore.Authentication.Negotiate;
+using Microsoft.EntityFrameworkCore;
+using UEventoBackend.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(connectionString));
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -13,7 +19,7 @@ builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization(options =>
 {
-    // By default, all incoming requests will be authorized according to the default policy.
+  
     options.FallbackPolicy = options.DefaultPolicy;
 });
 
@@ -23,7 +29,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: proveedorPermitidos,
         policy =>
         {
-            policy.WithOrigins("http://localhost:4200") // Cambia esto por tu URL de Angular
+            policy.WithOrigins("http://localhost:4200") 
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
