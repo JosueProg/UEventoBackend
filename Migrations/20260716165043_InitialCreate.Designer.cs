@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UEventoBackend.Data;
 
@@ -10,9 +11,11 @@ using UEventoBackend.Data;
 namespace UEventoBackend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260716165043_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,11 +24,7 @@ namespace UEventoBackend.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-<<<<<<< HEAD
-            modelBuilder.Entity("UEventoBackend.Models.Comentario", b =>
-=======
             modelBuilder.Entity("UEventoBackend.Models.Evento", b =>
->>>>>>> origin/AllanBranch
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,19 +32,6 @@ namespace UEventoBackend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-<<<<<<< HEAD
-                    b.Property<bool>("Anonimo")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Calificacion")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Contenido")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Estudiante")
-=======
                     b.Property<string>("Detalles")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -84,18 +70,12 @@ namespace UEventoBackend.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Cedula")
->>>>>>> origin/AllanBranch
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("EventoId")
                         .HasColumnType("int");
 
-<<<<<<< HEAD
-                    b.HasKey("Id");
-
-                    b.ToTable("Comentarios");
-=======
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -176,7 +156,6 @@ namespace UEventoBackend.Migrations
             modelBuilder.Entity("UEventoBackend.Models.TipoEvento", b =>
                 {
                     b.Navigation("Eventos");
->>>>>>> origin/AllanBranch
                 });
 #pragma warning restore 612, 618
         }

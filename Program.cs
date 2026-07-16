@@ -1,9 +1,15 @@
+<<<<<<< HEAD
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.EntityFrameworkCore;
+=======
+using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
+>>>>>>> origin/AllanBranch
 using UEventoBackend.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+<<<<<<< HEAD
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 
@@ -33,16 +39,38 @@ builder.Services.AddCors(options =>
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
+=======
+// CORS (Reemplaza con tu puerto de Angular si es diferente)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularDev", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+>>>>>>> origin/AllanBranch
 });
+
+// Conexión a SQL Server
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Evitar ciclos infinitos en respuestas JSON relacionales
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
+
+builder.Services.AddEndpointsApiExplorer();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
-
 app.UseHttpsRedirection();
+
+// Aplicar política CORS antes de la autorización
+app.UseCors("AllowAngularDev");
 
 app.UseAuthorization();
 
