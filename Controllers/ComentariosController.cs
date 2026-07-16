@@ -9,7 +9,7 @@ using UEventoBackend.Models;
 
 namespace UEventoBackend.Controllers
 {
-    [Route("comentarios")] // 2. CORREGIDO: Sin corchetes y mapeado a tu apiUrl de Angular
+    [Route("comentarios")] 
     [ApiController]
     public class ComentariosController : ControllerBase
     {
