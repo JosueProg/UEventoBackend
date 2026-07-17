@@ -1,15 +1,10 @@
-<<<<<<< HEAD
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.EntityFrameworkCore;
-=======
-using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
->>>>>>> origin/AllanBranch
 using UEventoBackend.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-<<<<<<< HEAD
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 
@@ -35,11 +30,12 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: proveedorPermitidos,
         policy =>
         {
-            policy.WithOrigins("http://localhost:4200") 
+            policy.WithOrigins("http://localhost:4200")
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
-=======
+        
+});
 // CORS (Reemplaza con tu puerto de Angular si es diferente)
 builder.Services.AddCors(options =>
 {
@@ -49,7 +45,6 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
->>>>>>> origin/AllanBranch
 });
 
 // Conexión a SQL Server
