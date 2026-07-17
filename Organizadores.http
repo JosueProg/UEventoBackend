@@ -1,0 +1,58 @@
+@host = http://localhost:5109
+
+### Listar todos los organizadores
+GET {{host}}/api/organizadores
+Accept: application/json
+
+### Listar con búsqueda y solo activos
+GET {{host}}/api/organizadores?buscar=ana&soloActivos=true
+Accept: application/json
+
+### Obtener uno por id
+GET {{host}}/api/organizadores/1
+Accept: application/json
+
+### Crear organizador
+POST {{host}}/api/organizadores
+Content-Type: application/json
+
+{
+  "nombre": "Lucía Ramírez",
+  "email": "lucia.ramirez@ug.edu.ec",
+  "password": "1234",
+  "facultad": "FCMF",
+  "cargo": "Docente",
+  "telefono": "0999999999",
+  "activo": true
+}
+
+### Actualizar organizador
+PUT {{host}}/api/organizadores/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "nombre": "Carlos Mendoza",
+  "email": "carlos@ug.edu.ec",
+  "password": "1234",
+  "facultad": "FCMF",
+  "cargo": "Docente Titular Principal",
+  "telefono": "0991234567",
+  "activo": true
+}
+
+### Eliminar organizador
+DELETE {{host}}/api/organizadores/5
+
+### Login de organizador
+POST {{host}}/api/organizadores/login
+Content-Type: application/json
+
+{
+  "email": "carlos@ug.edu.ec",
+  "password": "1234"
+}
+
+### Dashboard (estadísticas del módulo)
+GET {{host}}/api/organizadores/dashboard
+Accept: application/json
