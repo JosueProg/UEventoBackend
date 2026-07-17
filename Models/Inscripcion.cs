@@ -12,5 +12,7 @@ namespace UEventoBackend.Models
 
         public string Nombre { get; set; } = string.Empty;
         public string Cedula { get; set; } = string.Empty; // C.I. del estudiante
+        public string TipoAsistencia { get; set; } = string.Empty;
+        public bool RequiereCertificado { get; set; }
     }
 }

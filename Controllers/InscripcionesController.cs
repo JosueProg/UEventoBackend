@@ -5,6 +5,7 @@ using UEventoBackend.Models;
 
 namespace UEventoBackend.Controllers
 {
+    // 1. Ruta explícita en minúsculas para igualar a Angular
     [Route("api/[controller]")]
     [ApiController]
     public class InscripcionesController : ControllerBase
@@ -16,7 +17,13 @@ namespace UEventoBackend.Controllers
             _context = context;
         }
 
-        // GET: api/Inscripciones/evento/5
+        // NUEVO: Este método hará que la pantalla negra de error del navegador desaparezca
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Inscripcion>>> GetInscripcionesRoot()
+        {
+            return await _context.Inscripciones.ToListAsync();
+        }
+
         [HttpGet("evento/{eventoId}")]
         public async Task<ActionResult<IEnumerable<Inscripcion>>> GetInscripcionesPorEvento(int eventoId)
         {
@@ -25,18 +32,17 @@ namespace UEventoBackend.Controllers
                 .ToListAsync();
         }
 
-        // POST: api/Inscripciones
         [HttpPost]
-        public async Task<ActionResult<Inscripcion>> PostInscripcion(Inscripcion inscripcion)
+        // 2. Añadido [FromBody] para forzar el mapeo del JSON
+        public async Task<ActionResult<Inscripcion>> PostInscripcion([FromBody] Inscripcion inscripcion)
         {
-            inscripcion.Id = 0; // SQL Server generará automáticamente el ID identity
+            inscripcion.Id = 0;
             _context.Inscripciones.Add(inscripcion);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetInscripcion), new { id = inscripcion.Id }, inscripcion);
         }
 
-        // GET: api/Inscripciones/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Inscripcion>> GetInscripcion(int id)
         {
@@ -45,9 +51,8 @@ namespace UEventoBackend.Controllers
             return inscripcion;
         }
 
-        // PUT: api/Inscripciones/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutInscripcion(int id, Inscripcion inscripcion)
+        public async Task<IActionResult> PutInscripcion(int id, [FromBody] Inscripcion inscripcion)
         {
             if (id != inscripcion.Id) return BadRequest();
 
@@ -66,7 +71,6 @@ namespace UEventoBackend.Controllers
             return Ok(inscripcion);
         }
 
-        // DELETE: api/Inscripciones/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteInscripcion(int id)
         {
