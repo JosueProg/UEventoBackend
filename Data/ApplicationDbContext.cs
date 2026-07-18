@@ -12,6 +12,7 @@ namespace UEventoBackend.Data
         public DbSet<TipoEvento> TiposEvento { get; set; }
         public DbSet<Inscripcion> Inscripciones { get; set; }
         public DbSet<OrganizadorModel> Organizadores { get; set; }
+        public DbSet<Estudiante> Estudiantes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,16 +1,19 @@
 using Microsoft.AspNetCore.Authentication.Negotiate;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
 using System.Text.Json.Serialization;
 using UEventoBackend.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-// Conexión a SQL Server
+// Conexión a la Base de Datos
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-//Controladores 
+// Controladores
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -18,16 +21,33 @@ builder.Services.AddControllers()
     });
 
 builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
-   .AddNegotiate();
-
-builder.Services.AddAuthorization(options =>
+// Autenticación
+builder.Services.AddAuthentication(options =>
 {
-    options.FallbackPolicy = options.DefaultPolicy;
-});
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    var jwtKey = builder.Configuration["Jwt:Key"] ?? "ClaveSecretaTemporalMuyLargaParaQueNoFalle123!";
 
-// CORS 
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+})
+.AddNegotiate(); 
+
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.FallbackPolicy = options.DefaultPolicy;
+//});
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularDev", policy =>
@@ -38,9 +58,12 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddEndpointsApiExplorer();
-
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+}
 
 app.UseHttpsRedirection();
 
