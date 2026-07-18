@@ -6,13 +6,16 @@ namespace UEventoBackend.Data
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-
         public DbSet<Comentario> Comentarios { get; set; }
         public DbSet<Evento> Eventos { get; set; }
         public DbSet<TipoEvento> TiposEvento { get; set; }
         public DbSet<Inscripcion> Inscripciones { get; set; }
         public DbSet<OrganizadorModel> Organizadores { get; set; }
         public DbSet<Estudiante> Estudiantes { get; set; }
+
+        public DbSet<PonenteModel> Ponentes { get; set; }
+        public DbSet<RecursoModel> Recursos { get; set; }
+        public DbSet<UsuarioModel> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -40,6 +43,7 @@ namespace UEventoBackend.Data
                 new TipoEvento { Id = 4, Nombre = "Congreso" }
             );
 
+            // Configuración Módulo Organizadores
             modelBuilder.Entity<OrganizadorModel>(e =>
             {
                 e.ToTable("Organizadores");

@@ -37,17 +37,21 @@ builder.Services.AddAuthentication(options =>
     {
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
-        ValidateIssuer = false,
-        ValidateAudience = false
+
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+
+        // valores por defecto
+        ValidIssuer = builder.Configuration["Jwt:Issuer"] ?? "https://localhost:7205",
+        ValidAudience = builder.Configuration["Jwt:Audience"] ?? "http://localhost:4200"
     };
 })
-.AddNegotiate(); 
+.AddNegotiate();
 
-//builder.Services.AddAuthorization(options =>
-//{
-//    options.FallbackPolicy = options.DefaultPolicy;
-//});
+builder.Services.AddAuthorization();
 
+// CORS 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularDev", policy =>
