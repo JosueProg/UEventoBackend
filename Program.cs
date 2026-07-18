@@ -42,7 +42,7 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
 
-        // valores por defecto
+        // valores defecto
         ValidIssuer = builder.Configuration["Jwt:Issuer"] ?? "https://localhost:7205",
         ValidAudience = builder.Configuration["Jwt:Audience"] ?? "http://localhost:4200"
     };
