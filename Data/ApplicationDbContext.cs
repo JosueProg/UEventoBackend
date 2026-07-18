@@ -3,19 +3,11 @@ using UEventoBackend.Models;
 
 namespace UEventoBackend.Data
 {
-
-    public class ApplicationDbContext : DbContext
-    {
-              public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {
-        }
-        public DbSet<Comentario> Comentarios { get; set; }
-    }
-}
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
+        public DbSet<Comentario> Comentarios { get; set; }
         public DbSet<Evento> Eventos { get; set; }
         public DbSet<TipoEvento> TiposEvento { get; set; }
         public DbSet<Inscripcion> Inscripciones { get; set; }
@@ -36,7 +28,7 @@ namespace UEventoBackend.Data
                 .HasOne(i => i.Evento)
                 .WithMany(e => e.Inscripciones)
                 .HasForeignKey(i => i.EventoId)
-                .OnDelete(DeleteBehavior.Cascade); 
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Seed Data para TipoEvento
             modelBuilder.Entity<TipoEvento>().HasData(
