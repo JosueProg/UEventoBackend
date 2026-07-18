@@ -42,7 +42,12 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
+// En desarrollo NO se redirige a HTTPS: la redirección rompe las llamadas
+// CORS del frontend Angular hacia http://localhost:5109.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 
 // Aplica la política CORS definida arriba (necesaria para el frontend Angular).
 app.UseCors(proveedorPermitidos);
