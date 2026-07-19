@@ -49,26 +49,6 @@ namespace UEventoBackend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Comentarios");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Anonimo = false,
-                            Calificacion = 5,
-                            Contenido = "El taller fue muy práctico y directo al grano, excelente.",
-                            Estudiante = "Luis Gomez",
-                            EventoId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Anonimo = true,
-                            Calificacion = 4,
-                            Contenido = "Me gustaría que los próximos eventos duren un poco más.",
-                            Estudiante = "Anónimo",
-                            EventoId = 2
-                        });
                 });
 
             modelBuilder.Entity("UEventoBackend.Models.Estudiante", b =>

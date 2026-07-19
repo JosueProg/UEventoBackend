@@ -22,7 +22,7 @@ namespace UEventoBackend.Controllers
 
         // GET: /comentarios
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Comentario>>> GetComentarios() // 3. CORREGIDO: Cambiado ComentarioModel a Comentario
+        public async Task<ActionResult<IEnumerable<Comentario>>> GetComentarios() 
         {
             return await _context.Comentarios.ToListAsync();
         }
@@ -44,7 +44,6 @@ namespace UEventoBackend.Controllers
             _context.Comentarios.Add(nuevoComentario);
             await _context.SaveChangesAsync();
 
-            // 6. CORREGIDO: Apunta al método real del controlador que es "GetComentarios"
             return CreatedAtAction(nameof(GetComentarios), new { id = nuevoComentario.Id }, nuevoComentario);
         }
 

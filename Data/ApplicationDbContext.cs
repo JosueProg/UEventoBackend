@@ -7,7 +7,6 @@ namespace UEventoBackend.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        public DbSet<Comentario> Comentarios { get; set; }
         public DbSet<Evento> Eventos { get; set; }
         public DbSet<TipoEvento> TiposEvento { get; set; }
         public DbSet<Inscripcion> Inscripciones { get; set; }
@@ -16,6 +15,7 @@ namespace UEventoBackend.Data
         public DbSet<PonenteModel> Ponentes { get; set; }
         public DbSet<RecursoModel> Recursos { get; set; }
         public DbSet<UsuarioModel> Usuarios { get; set; }
+        public DbSet<Comentario> Comentarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -98,12 +98,6 @@ namespace UEventoBackend.Data
             modelBuilder.Entity<Inscripcion>().HasData(
                 new Inscripcion { Id = 1, EventoId = 1, Nombre = "Luis Gomez", Cedula = "0912345678", TipoAsistencia = "Presencial", RequiereCertificado = true },
                 new Inscripcion { Id = 2, EventoId = 1, Nombre = "Marta Sanchez", Cedula = "0987654321", TipoAsistencia = "Virtual", RequiereCertificado = false }
-            );
-
-            // Comentarios
-            modelBuilder.Entity<Comentario>().HasData(
-                new Comentario { Id = 1, Estudiante = "Luis Gomez", Contenido = "El taller fue muy práctico y directo al grano, excelente.", Calificacion = 5, Anonimo = false, EventoId = 1 },
-                new Comentario { Id = 2, Estudiante = "Anónimo", Contenido = "Me gustaría que los próximos eventos duren un poco más.", Calificacion = 4, Anonimo = true, EventoId = 2 }
             );
         }
     }

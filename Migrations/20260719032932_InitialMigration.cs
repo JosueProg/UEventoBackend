@@ -7,7 +7,7 @@
 namespace UEventoBackend.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigrate : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -172,15 +172,6 @@ namespace UEventoBackend.Migrations
                         principalTable: "Eventos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.InsertData(
-                table: "Comentarios",
-                columns: new[] { "Id", "Anonimo", "Calificacion", "Contenido", "Estudiante", "EventoId" },
-                values: new object[,]
-                {
-                    { 1, false, 5, "El taller fue muy práctico y directo al grano, excelente.", "Luis Gomez", 1 },
-                    { 2, true, 4, "Me gustaría que los próximos eventos duren un poco más.", "Anónimo", 2 }
                 });
 
             migrationBuilder.InsertData(

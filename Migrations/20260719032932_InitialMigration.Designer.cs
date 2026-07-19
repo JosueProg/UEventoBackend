@@ -11,8 +11,8 @@ using UEventoBackend.Data;
 namespace UEventoBackend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260718193517_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260719032932_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -77,6 +77,22 @@ namespace UEventoBackend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Estudiantes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "luis.gomez@ug.edu.ec",
+                            Nombre = "Luis Gomez",
+                            Password = "password123"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "marta.sanchez@ug.edu.ec",
+                            Nombre = "Marta Sanchez",
+                            Password = "password123"
+                        });
                 });
 
             modelBuilder.Entity("UEventoBackend.Models.Evento", b =>
@@ -114,6 +130,28 @@ namespace UEventoBackend.Migrations
                     b.HasIndex("TipoEventoId");
 
                     b.ToTable("Eventos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Detalles = "Taller práctico sobre la construcción de APIs RESTful.",
+                            Fecha = "2026-08-15",
+                            Imagen = "",
+                            OrganizadorId = 1,
+                            TipoEventoId = 2,
+                            Titulo = "Introducción a .NET Core"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Detalles = "Encuentro anual con múltiples ponencias sobre tecnología.",
+                            Fecha = "2026-09-10",
+                            Imagen = "",
+                            OrganizadorId = 2,
+                            TipoEventoId = 4,
+                            Titulo = "Congreso de Innovación Tecnológica"
+                        });
                 });
 
             modelBuilder.Entity("UEventoBackend.Models.Inscripcion", b =>
@@ -147,6 +185,26 @@ namespace UEventoBackend.Migrations
                     b.HasIndex("EventoId");
 
                     b.ToTable("Inscripciones");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Cedula = "0912345678",
+                            EventoId = 1,
+                            Nombre = "Luis Gomez",
+                            RequiereCertificado = true,
+                            TipoAsistencia = "Presencial"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Cedula = "0987654321",
+                            EventoId = 1,
+                            Nombre = "Marta Sanchez",
+                            RequiereCertificado = false,
+                            TipoAsistencia = "Virtual"
+                        });
                 });
 
             modelBuilder.Entity("UEventoBackend.Models.OrganizadorModel", b =>
@@ -290,6 +348,28 @@ namespace UEventoBackend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Ponentes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Biografia = "Experto en machine learning e infraestructuras de datos.",
+                            Correo = "alberto.ramos@ug.edu.ec",
+                            Especialidad = "Inteligencia Artificial",
+                            Institucion = "Universidad de Guayaquil",
+                            Nombre = "Dr. Alberto Ramos",
+                            Telefono = "0991122334"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Biografia = "Auditora de seguridad informática y redes.",
+                            Correo = "sofia.castro@ug.edu.ec",
+                            Especialidad = "Ciberseguridad",
+                            Institucion = "Universidad de Guayaquil",
+                            Nombre = "Ing. Sofia Castro",
+                            Telefono = "0988877665"
+                        });
                 });
 
             modelBuilder.Entity("UEventoBackend.Models.RecursoModel", b =>
@@ -321,6 +401,26 @@ namespace UEventoBackend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Recursos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Cantidad = 5,
+                            Descripcion = "Proyector 4K para auditorios principales.",
+                            Disponible = true,
+                            Nombre = "Proyector Epson",
+                            Tipo = "Audiovisual"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Cantidad = 10,
+                            Descripcion = "Micrófono de solapa y mano con base.",
+                            Disponible = true,
+                            Nombre = "Micrófono Inalámbrico",
+                            Tipo = "Audio"
+                        });
                 });
 
             modelBuilder.Entity("UEventoBackend.Models.TipoEvento", b =>
@@ -390,6 +490,16 @@ namespace UEventoBackend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "admin@ug.edu.ec",
+                            Nombre = "Administrador General",
+                            Password = "admin",
+                            Tipo = "administrador"
+                        });
                 });
 
             modelBuilder.Entity("UEventoBackend.Models.Evento", b =>
