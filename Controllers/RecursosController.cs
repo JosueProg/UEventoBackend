@@ -12,7 +12,6 @@ using UEventoBackend.Models;
 
 namespace UEventoBackend.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class RecursosController : ControllerBase
