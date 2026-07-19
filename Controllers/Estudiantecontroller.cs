@@ -16,22 +16,14 @@ namespace UEventoBackend.Controllers
             _context = context;
         }
 
-        // POST: api/estudiante/login
         [HttpPost("login")]
         public async Task<ActionResult<Estudiante>> Login([FromBody] LoginRequest credenciales)
         {
             var email = credenciales.Email.Trim().ToLower();
-
             var estudiante = await _context.Estudiantes
-                .FirstOrDefaultAsync(e =>
-                    e.Email.ToLower() == email &&
-                    e.Password == credenciales.Password);
+                .FirstOrDefaultAsync(e => e.Email.ToLower() == email && e.Password == credenciales.Password);
 
-            if (estudiante == null)
-            {
-                return Unauthorized(new { mensaje = "Credenciales incorrectas o estudiante no encontrado." });
-            }
-
+            if (estudiante == null) return Unauthorized(new { mensaje = "Credenciales incorrectas." });
             return Ok(estudiante);
         }
 
@@ -55,7 +47,8 @@ namespace UEventoBackend.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEstudiante(int id, Estudiante estudiante)
         {
-            if (id != estudiante.Id) return BadRequest();
+            if (id != estudiante.Id) return BadRequest(new { mensaje = "El ID no coincide." });
+
             _context.Entry(estudiante).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return NoContent();
@@ -67,13 +60,13 @@ namespace UEventoBackend.Controllers
         {
             var estudiante = await _context.Estudiantes.FindAsync(id);
             if (estudiante == null) return NotFound();
+
             _context.Estudiantes.Remove(estudiante);
             await _context.SaveChangesAsync();
             return NoContent();
         }
     }
 
-    // Clase DTO de apoyo para recibir los datos del login
     public class LoginRequest
     {
         public string Email { get; set; } = string.Empty;

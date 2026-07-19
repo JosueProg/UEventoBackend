@@ -7,7 +7,7 @@
 namespace UEventoBackend.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,7 +37,8 @@ namespace UEventoBackend.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Carrera = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -176,11 +177,11 @@ namespace UEventoBackend.Migrations
 
             migrationBuilder.InsertData(
                 table: "Estudiantes",
-                columns: new[] { "Id", "Email", "Nombre", "Password" },
+                columns: new[] { "Id", "Carrera", "Email", "Nombre", "Password" },
                 values: new object[,]
                 {
-                    { 1, "luis.gomez@ug.edu.ec", "Luis Gomez", "password123" },
-                    { 2, "marta.sanchez@ug.edu.ec", "Marta Sanchez", "password123" }
+                    { 1, null, "luis.gomez@ug.edu.ec", "Luis Gomez", "password123" },
+                    { 2, null, "marta.sanchez@ug.edu.ec", "Marta Sanchez", "password123" }
                 });
 
             migrationBuilder.InsertData(

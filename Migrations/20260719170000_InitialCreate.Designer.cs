@@ -11,8 +11,8 @@ using UEventoBackend.Data;
 namespace UEventoBackend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260719032932_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20260719170000_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,6 +61,9 @@ namespace UEventoBackend.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Carrera")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
